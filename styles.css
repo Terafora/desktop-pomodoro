@@ -32,3 +32,13 @@ li {
   margin: 5px 0;
   background-color: #f0f0f0;
 }
+
+.completed {
+  text-decoration: line-through;
+  color: grey;
+}
+
+li[contenteditable="true"] {
+  border: 1px dashed #ccc;
+  padding: 5px;
+}
