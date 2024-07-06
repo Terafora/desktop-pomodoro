@@ -5,7 +5,7 @@ The Pomodoro Timer and Checklist Application is a desktop productivity tool buil
 
 ## Features
 
-- **Pomodoro Timer**: Helps users manage their work time using the Pomodoro Technique, with customizable intervals.
+- **Pomodoro Timer**: Helps users manage their work time using the Pomodoro Technique, with customizable intervals. A light jingle sounds when the timer comes to an end.
 - **Checklist**: Allows users to create, edit, and delete tasks on a checklist.
 - **Persistent Storage**: Checklist items are stored locally using localStorage for data persistence.
 
