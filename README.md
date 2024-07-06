@@ -12,8 +12,10 @@ The Pomodoro Timer and Checklist Application is a desktop productivity tool buil
 ## Usage
 
 1. **Pomodoro Timer**
+- Set time in minutes for work time, break time and how many loops of the alarm you want.
 - Click "Start" to begin the timer.
-- Use "Reset" to reset the timer to the default 25 minutes.
+- Click "Pause/Resume" to pause and resume the timer.
+- Use "Reset" to reset the timer.
 
 2. **Checklist**
 - Enter a task in the input field and click "Add Task" to add it to the checklist.
@@ -28,25 +30,35 @@ The application features a minimalist design with a focus on usability:
 - **User Interface**: Simple and intuitive interface for easy task management.
 - **Modal Windows**: Modal dialogs for editing tasks to ensure focus on task management without clutter.
 
+#### The design of this website will be redone in the coming days.
+
 ## Technologies
 
-- HTML5
-- CSS3
-- JavaScript
-- ElectronJS
+- **HTML5**
+- **CSS3**
+- **JavaScript**
+- **ElectronJS**
 
 ## Known Issues
 
-- **Styling Issues**: Some CSS styling adjustments may be needed for better appearance and functionality across different platforms and screen sizes.
+- **Styling Issues**: Some CSS styling adjustments will be needed for better appearance and functionality across different platforms and screen sizes.
 
 ## Installation
 
 To run the application locally:
 
-1. Clone this repository.
-2. Install dependencies with npm install.
-3. Start the application with npm start.
-
+1. Clone this repository:
+```bash
+git clone https://github.com/Terafora/desktop-pomodoro.git
+```
+2. Install dependencies with:
+```bash
+npm install
+```
+3. Start the application with:
+```bash
+  npm start
+```
 ## Contributing
 
 Contributions are welcome! If you encounter any bugs or have suggestions for improvement, please open an issue or submit a pull request on GitHub.
@@ -55,6 +67,11 @@ Contributions are welcome! If you encounter any bugs or have suggestions for imp
 
 - Sound effects obtained from [Uppbeat.io](https://uppbeat.io)
 
-## License
+## Contact
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+If you have any questions, feedback, or job opportunities, feel free to get in touch with Charlotte:
+
+- **Email**: [charlie.stone649@gmail.com](mailto:charlie.stone649@gmail.com)
+- **Phone**: +44 07369 279 305
+- **GitHub**: [Terafora](https://github.com/Terafora)
+- **LinkedIn**: [Charlotte Stone](https://www.linkedin.com/in/charlotte-stone-web/)
