@@ -42,3 +42,30 @@ li[contenteditable="true"] {
   border: 1px dashed #ccc;
   padding: 5px;
 }
+
+button.editBtn, button.deleteBtn {
+  margin-left: 10px;
+  font-size: 14px;
+  padding: 2px 5px;
+  cursor: pointer;
+}
+
+button.editBtn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+button.deleteBtn {
+  background-color: #f44336;
+  color: white;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: grey;
+}
+
+li[contenteditable="true"] {
+  border: 1px dashed #ccc;
+  padding: 5px;
+}
