@@ -45,6 +45,31 @@ function addTask() {
     taskInput.value = '';
 }
 
+function saveTasks() {
+    const tasks = [];
+    taskList.querySelectorAll('li').forEach(li => {
+        tasks.push({
+            text: li.textContent,
+            completed: li.classList.contains('completed')
+        });
+    });
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function loadTasks() {
+    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    tasks.forEach(task => {
+        const li = document.createElement('li');
+        li.textContent = task.text;
+        if (task.completed) {
+            li.classList.add('completed');
+        }
+        addTaskListeners(li);
+        taskList.appendChild(li);
+    });
+}
+
+
 startBtn.addEventListener('click', startTimer);
 resetBtn.addEventListener('click', resetTimer);
 addTaskBtn.addEventListener('click', addTask);
