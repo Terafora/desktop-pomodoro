@@ -35,16 +35,6 @@ function resetTimer() {
     updateTimer();
 }
 
-function addTask() {
-    const taskText = taskInput.value.trim();
-    if (taskText === '') return;
-
-    const li = document.createElement('li');
-    li.textContent = taskText;
-    taskList.appendChild(li);
-    taskInput.value = '';
-}
-
 function saveTasks() {
     const tasks = [];
     taskList.querySelectorAll('li').forEach(li => {
@@ -69,9 +59,41 @@ function loadTasks() {
     });
 }
 
+function addTask() {
+    const taskText = taskInput.value.trim();
+    if (taskText === '') return;
+
+    const li = document.createElement('li');
+    li.textContent = taskText;
+    addTaskListeners(li);
+    taskList.appendChild(li);
+    taskInput.value = '';
+    saveTasks();
+}
+
+function addTaskListeners(li) {
+    li.addEventListener('click', () => {
+        li.classList.toggle('completed');
+        saveTasks();
+    });
+
+    li.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        if (confirm('Do you want to delete this task?')) {
+            li.remove();
+            saveTasks();
+        }
+    });
+
+    li.contentEditable = true;
+    li.addEventListener('blur', saveTasks);
+}
 
 startBtn.addEventListener('click', startTimer);
 resetBtn.addEventListener('click', resetTimer);
 addTaskBtn.addEventListener('click', addTask);
 
-updateTimer();
+document.addEventListener('DOMContentLoaded', () => {
+    loadTasks();
+    updateTimer();
+});
