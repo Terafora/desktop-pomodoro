@@ -1,4 +1,5 @@
 const timerDisplay = document.getElementById('timer');
+const timeInput = document.getElementById('timeInput');
 const startBtn = document.getElementById('startBtn');
 const resetBtn = document.getElementById('resetBtn');
 const addTaskBtn = document.getElementById('addTaskBtn');
@@ -7,11 +8,14 @@ const editModal = document.getElementById('editModal');
 const editTaskInput = document.getElementById('editTaskInput');
 const saveEditBtn = document.getElementById('saveEditBtn');
 const closeBtn = document.querySelector('.closeBtn');
+const addTaskModal = document.getElementById('addTaskModal');
+const closeAddBtn = document.querySelector('.closeAddBtn');
+const addTaskInput = document.getElementById('addTaskInput');
+const confirmAddTaskBtn = document.getElementById('confirmAddTaskBtn');
 const { remote } = require('electron');
 
-
 let timer;
-let timeLeft = 25 * 60; // 25 minutes in seconds
+let timeLeft;
 let currentEditTask;
 
 function updateTimer() {
@@ -22,6 +26,9 @@ function updateTimer() {
 
 function startTimer() {
     if (timer) return;
+
+    timeLeft = parseInt(timeInput.value) * 60;
+    updateTimer();
 
     timer = setInterval(() => {
         timeLeft--;
@@ -37,7 +44,7 @@ function startTimer() {
 function resetTimer() {
     clearInterval(timer);
     timer = null;
-    timeLeft = 25 * 60;
+    timeLeft = parseInt(timeInput.value) * 60;
     updateTimer();
 }
 
@@ -60,7 +67,6 @@ function loadTasks() {
 }
 
 function addTaskElement(taskText, completed = false) {
-    console.log('Adding task element:', taskText); // Debug log
     const li = document.createElement('li');
 
     const taskSpan = document.createElement('span');
@@ -89,7 +95,6 @@ function addTaskElement(taskText, completed = false) {
 function addTask() {
     const taskText = addTaskInput.value.trim();
     if (taskText === '') {
-        console.log('Task input is empty, not adding task'); // Debug log
         return;
     }
 
@@ -112,10 +117,8 @@ function addTaskListeners(li) {
 
     deleteBtn.addEventListener('click', () => {
         if (confirm('Do you want to delete this task?')) {
-            console.log('Deleting task:', taskSpan.textContent); // Debug log
             li.remove();
             saveTasks();
-            addTaskInput.focus(); // Ensure input field regains focus
         }
     });
 
@@ -132,43 +135,35 @@ saveEditBtn.addEventListener('click', () => {
         currentEditTask.textContent = editTaskInput.value.trim();
         saveTasks();
         editModal.style.display = 'none';
-        addTaskInput.focus(); // Ensure input field regains focus
     }
 });
 
 closeBtn.addEventListener('click', () => {
     editModal.style.display = 'none';
-    addTaskInput.focus(); // Ensure input field regains focus
 });
 
 window.addEventListener('click', (e) => {
     if (e.target == editModal) {
         editModal.style.display = 'none';
-        addTaskInput.focus(); // Ensure input field regains focus
     }
 });
 
 startBtn.addEventListener('click', startTimer);
 resetBtn.addEventListener('click', resetTimer);
 
-// Open Add Task Modal
 addTaskBtn.addEventListener('click', () => {
     addTaskModal.style.display = 'block';
-    addTaskInput.focus(); // Ensure input field gains focus
 });
 
-// Close Add Task Modal
 closeAddBtn.addEventListener('click', () => {
     addTaskModal.style.display = 'none';
-    addTaskInput.value = ''; // Clear input field
+    addTaskInput.value = '';
 });
 
-// Confirm Add Task
 confirmAddTaskBtn.addEventListener('click', () => {
     addTask();
 });
 
-// Add task on Enter key in modal
 addTaskInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
         addTask();
@@ -177,10 +172,9 @@ addTaskInput.addEventListener('keydown', (e) => {
 
 document.addEventListener('DOMContentLoaded', () => {
     loadTasks();
+    timeLeft = parseInt(timeInput.value) * 60;
     updateTimer();
 });
-
-const { remote } = require('electron');
 
 let isDragging = false;
 let offset = { x: 0, y: 0 };

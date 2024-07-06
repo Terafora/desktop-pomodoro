@@ -9,30 +9,38 @@
 </head>
 
 <body>
-    <div id="timer">25:00</div>
-    <button id="startBtn">Start</button>
-    <button id="resetBtn">Reset</button>
-
-    <input type="text" id="taskInput" placeholder="New task">
-    <button id="addTaskBtn">Add Task</button>
-
-    <ul id="taskList"></ul>
-    <div id="move">move</div>
-    <!-- Modal for editing task -->
-    <div id="editModal" class="modal">
-        <div class="modal-content">
-            <span class="closeBtn">&times;</span>
-            <input type="text" id="editTaskInput">
-            <button id="saveEditBtn">Save</button>
+    <div class="container">
+        <div id="timer">25:00</div>
+        <label for="timeInput">Set Timer (minutes):</label>
+        <input type="number" id="timeInput" min="1" value="25">
+        <div class="controls">
+            <button id="startBtn">Start</button>
+            <button id="resetBtn">Reset</button>
         </div>
-    </div>
 
-    <!-- Modal for adding task -->
-    <div id="addTaskModal" class="modal">
-        <div class="modal-content">
-            <span class="closeAddBtn">&times;</span>
-            <input type="text" id="addTaskInput" placeholder="New task">
-            <button id="confirmAddTaskBtn">Add Task</button>
+        <div class="task-section">
+            <button id="addTaskBtn">Add Task</button>
+            <ul id="taskList"></ul>
+        </div>
+
+        <div id="move">move</div>
+
+        <!-- Modal for editing task -->
+        <div id="editModal" class="modal">
+            <div class="modal-content">
+                <span class="closeBtn">&times;</span>
+                <input type="text" id="editTaskInput">
+                <button id="saveEditBtn">Save</button>
+            </div>
+        </div>
+
+        <!-- Modal for adding task -->
+        <div id="addTaskModal" class="modal">
+            <div class="modal-content">
+                <span class="closeAddBtn">&times;</span>
+                <input type="text" id="addTaskInput" placeholder="New task">
+                <button id="confirmAddTaskBtn">Add Task</button>
+            </div>
         </div>
     </div>
 

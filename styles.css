@@ -13,9 +13,36 @@ body {
     box-shadow: 0 0 10px rgba(2, 2, 2, 0.3);
 }
 
+.container {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 #timer {
     font-size: 48px;
-    margin: 20px;
+    margin: 20px 0;
+    color: white;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: white;
+}
+
+input[type="number"], input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    border-radius: 5px;
+    outline: none;
 }
 
 button {
@@ -34,31 +61,32 @@ button:hover {
     background-color: rgba(255, 255, 255, 0.3);
 }
 
-#taskInput {
-    padding: 10px;
-    font-size: 16px;
-    margin: 10px 0;
-    background-color: rgba(255, 255, 255, 0.2);
-    border: none;
-    color: white;
-    border-radius: 5px;
-    outline: none;
+.controls {
+    display: flex;
+    justify-content: space-between;
+}
+
+.task-section button {
+    width: 100%;
+    margin-bottom: 20px;
 }
 
 ul {
     list-style-type: none;
     padding: 0;
+    margin: 0;
 }
 
 li {
-    padding: 5px;
+    padding: 10px;
     font-size: 18px;
-    margin: 5px 0;
+    margin-bottom: 10px;
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 5px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: white;
 }
 
 .completed {
@@ -74,7 +102,7 @@ li[contenteditable="true"] {
 button.editBtn, button.deleteBtn {
     margin-left: 10px;
     font-size: 14px;
-    padding: 2px 5px;
+    padding: 5px 10px;
     cursor: pointer;
     background-color: rgba(255, 255, 255, 0.2);
     border: none;
@@ -118,6 +146,7 @@ button.deleteBtn {
     border-radius: 10px;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    color: white;
 }
 
 .closeBtn, .closeAddBtn {
@@ -139,6 +168,9 @@ button.deleteBtn {
     padding: 10px;
     cursor: grabbing; /* Default cursor style */
     user-select: none; /* Prevent text selection */
+    margin-top: 20px;
+    border-radius: 5px;
+    color: white;
 }
 
 #move:hover {
