@@ -1,22 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Pomodoro Timer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer and Checklist</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <h1>Pomodoro Timer</h1>
     <div id="timer">25:00</div>
     <button id="startBtn">Start</button>
     <button id="resetBtn">Reset</button>
 
-    <h2>Tasks</h2>
-    <ul id="taskList"></ul>
     <input type="text" id="taskInput" placeholder="New task">
     <button id="addTaskBtn">Add Task</button>
+
+    <ul id="taskList"></ul>
+
+    <!-- Modal for editing task -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="closeBtn">&times;</span>
+            <input type="text" id="editTaskInput">
+            <button id="saveEditBtn">Save</button>
+        </div>
+    </div>
 
     <script src="renderer.js"></script>
 </body>

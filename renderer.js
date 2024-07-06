@@ -4,9 +4,14 @@ const resetBtn = document.getElementById('resetBtn');
 const taskInput = document.getElementById('taskInput');
 const addTaskBtn = document.getElementById('addTaskBtn');
 const taskList = document.getElementById('taskList');
+const editModal = document.getElementById('editModal');
+const editTaskInput = document.getElementById('editTaskInput');
+const saveEditBtn = document.getElementById('saveEditBtn');
+const closeBtn = document.querySelector('.closeBtn');
 
 let timer;
 let timeLeft = 25 * 60; // 25 minutes in seconds
+let currentEditTask;
 
 function updateTimer() {
     const minutes = Math.floor(timeLeft / 60);
@@ -94,11 +99,9 @@ function addTaskListeners(li) {
     const taskSpan = li.querySelector('.task-text');
 
     editBtn.addEventListener('click', () => {
-        const newTaskText = prompt('Edit task:', taskSpan.textContent);
-        if (newTaskText !== null && newTaskText.trim() !== '') {
-            taskSpan.textContent = newTaskText.trim();
-            saveTasks();
-        }
+        currentEditTask = taskSpan;
+        editTaskInput.value = taskSpan.textContent;
+        editModal.style.display = 'block';
     });
 
     deleteBtn.addEventListener('click', () => {
@@ -109,12 +112,30 @@ function addTaskListeners(li) {
     });
 
     li.addEventListener('click', (e) => {
-        if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'SPAN') {
+        if (e.target !== editBtn && e.target !== deleteBtn) {
             li.classList.toggle('completed');
             saveTasks();
         }
     });
 }
+
+saveEditBtn.addEventListener('click', () => {
+    if (currentEditTask) {
+        currentEditTask.textContent = editTaskInput.value.trim();
+        saveTasks();
+        editModal.style.display = 'none';
+    }
+});
+
+closeBtn.addEventListener('click', () => {
+    editModal.style.display = 'none';
+});
+
+window.addEventListener('click', (e) => {
+    if (e.target == editModal) {
+        editModal.style.display = 'none';
+    }
+});
 
 startBtn.addEventListener('click', startTimer);
 resetBtn.addEventListener('click', resetTimer);
