@@ -37,6 +37,7 @@ function startTimer() {
         if (timeLeft <= 0) {
             clearInterval(timer);
             timer = null;
+            alarmSound.play();
         }
     }, 1000);
 }
