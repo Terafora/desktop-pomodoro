@@ -28,9 +28,15 @@ The application features a minimalist design with a focus on usability:
 - **User Interface**: Simple and intuitive interface for easy task management.
 - **Modal Windows**: Modal dialogs for editing tasks to ensure focus on task management without clutter.
 
+## Technologies
+
+- HTML5
+- CSS3
+- JavaScript
+- ElectronJS
+
 ## Known Issues
 
-- **Draggable Window**: Currently, the application window is not draggable. I am actively working on implementing this feature to improve usability.
 - **Styling Issues**: Some CSS styling adjustments may be needed for better appearance and functionality across different platforms and screen sizes.
 
 ## Installation
@@ -44,6 +50,10 @@ To run the application locally:
 ## Contributing
 
 Contributions are welcome! If you encounter any bugs or have suggestions for improvement, please open an issue or submit a pull request on GitHub.
+
+## Credits
+
+- Sound effects obtained from [Uppbeat.io](https://uppbeat.io)
 
 ## License
 
