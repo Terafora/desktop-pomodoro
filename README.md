@@ -25,8 +25,8 @@ The Pomodoro Timer and Checklist Application is a desktop productivity tool buil
 
 The application features a minimalist design with a focus on usability:
 
-    User Interface: Simple and intuitive interface for easy task management.
-    Modal Windows: Modal dialogs for editing tasks to ensure focus on task management without clutter.
+- **User Interface**: Simple and intuitive interface for easy task management.
+- **Modal Windows**: Modal dialogs for editing tasks to ensure focus on task management without clutter.
 
 ## Known Issues
 
