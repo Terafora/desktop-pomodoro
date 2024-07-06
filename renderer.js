@@ -39,7 +39,7 @@ function saveTasks() {
     const tasks = [];
     taskList.querySelectorAll('li').forEach(li => {
         tasks.push({
-            text: li.textContent,
+            text: li.childNodes[0].textContent,
             completed: li.classList.contains('completed')
         });
     });
@@ -51,9 +51,21 @@ function loadTasks() {
     tasks.forEach(task => {
         const li = document.createElement('li');
         li.textContent = task.text;
+
+        const editBtn = document.createElement('button');
+        editBtn.textContent = 'Edit';
+        editBtn.classList.add('editBtn');
+        li.appendChild(editBtn);
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.classList.add('deleteBtn');
+        li.appendChild(deleteBtn);
+
         if (task.completed) {
             li.classList.add('completed');
         }
+
         addTaskListeners(li);
         taskList.appendChild(li);
     });
@@ -65,6 +77,17 @@ function addTask() {
 
     const li = document.createElement('li');
     li.textContent = taskText;
+
+    const editBtn = document.createElement('button');
+    editBtn.textContent = 'Edit';
+    editBtn.classList.add('editBtn');
+    li.appendChild(editBtn);
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'Delete';
+    deleteBtn.classList.add('deleteBtn');
+    li.appendChild(deleteBtn);
+
     addTaskListeners(li);
     taskList.appendChild(li);
     taskInput.value = '';
@@ -72,15 +95,27 @@ function addTask() {
 }
 
 function addTaskListeners(li) {
-    li.addEventListener('click', () => {
-        li.classList.toggle('completed');
-        saveTasks();
+    const editBtn = li.querySelector('.editBtn');
+    const deleteBtn = li.querySelector('.deleteBtn');
+
+    editBtn.addEventListener('click', () => {
+        const newTaskText = prompt('Edit task:', li.firstChild.textContent);
+        if (newTaskText !== null) {
+            li.firstChild.textContent = newTaskText;
+            saveTasks();
+        }
     });
 
-    li.addEventListener('contextmenu', (e) => {
-        e.preventDefault();
+    deleteBtn.addEventListener('click', () => {
         if (confirm('Do you want to delete this task?')) {
             li.remove();
+            saveTasks();
+        }
+    });
+
+    li.addEventListener('click', (e) => {
+        if (e.target.tagName !== 'BUTTON') {
+            li.classList.toggle('completed');
             saveTasks();
         }
     });
