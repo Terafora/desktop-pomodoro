@@ -24,6 +24,11 @@ body {
     align-items: center;
 }
 
+#statusMessage {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: white;
+}
 .time-section {
     display: flex;
     flex-direction: column;
@@ -187,19 +192,4 @@ button.deleteBtn {
     color: #bbb;
     text-decoration: none;
     cursor: pointer;
-}
-
-/* Styles for draggable window */
-#move {
-    background-color: #ccc; /* Adjust background color as needed */
-    padding: 10px;
-    cursor: grabbing; /* Default cursor style */
-    user-select: none; /* Prevent text selection */
-    margin-top: 20px;
-    border-radius: 5px;
-    color: white;
-}
-
-#move:hover {
-    cursor: grabbing; /* Change cursor to grabbing on hover */
 }
