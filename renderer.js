@@ -1,13 +1,14 @@
 const timerDisplay = document.getElementById('timer');
 const startBtn = document.getElementById('startBtn');
 const resetBtn = document.getElementById('resetBtn');
-const taskInput = document.getElementById('taskInput');
 const addTaskBtn = document.getElementById('addTaskBtn');
 const taskList = document.getElementById('taskList');
 const editModal = document.getElementById('editModal');
 const editTaskInput = document.getElementById('editTaskInput');
 const saveEditBtn = document.getElementById('saveEditBtn');
 const closeBtn = document.querySelector('.closeBtn');
+const { remote } = require('electron');
+
 
 let timer;
 let timeLeft = 25 * 60; // 25 minutes in seconds
@@ -59,6 +60,7 @@ function loadTasks() {
 }
 
 function addTaskElement(taskText, completed = false) {
+    console.log('Adding task element:', taskText); // Debug log
     const li = document.createElement('li');
 
     const taskSpan = document.createElement('span');
@@ -85,12 +87,16 @@ function addTaskElement(taskText, completed = false) {
 }
 
 function addTask() {
-    const taskText = taskInput.value.trim();
-    if (taskText === '') return;
+    const taskText = addTaskInput.value.trim();
+    if (taskText === '') {
+        console.log('Task input is empty, not adding task'); // Debug log
+        return;
+    }
 
     addTaskElement(taskText);
-    taskInput.value = '';
+    addTaskInput.value = '';
     saveTasks();
+    addTaskModal.style.display = 'none';
 }
 
 function addTaskListeners(li) {
@@ -106,8 +112,10 @@ function addTaskListeners(li) {
 
     deleteBtn.addEventListener('click', () => {
         if (confirm('Do you want to delete this task?')) {
+            console.log('Deleting task:', taskSpan.textContent); // Debug log
             li.remove();
             saveTasks();
+            addTaskInput.focus(); // Ensure input field regains focus
         }
     });
 
@@ -124,24 +132,79 @@ saveEditBtn.addEventListener('click', () => {
         currentEditTask.textContent = editTaskInput.value.trim();
         saveTasks();
         editModal.style.display = 'none';
+        addTaskInput.focus(); // Ensure input field regains focus
     }
 });
 
 closeBtn.addEventListener('click', () => {
     editModal.style.display = 'none';
+    addTaskInput.focus(); // Ensure input field regains focus
 });
 
 window.addEventListener('click', (e) => {
     if (e.target == editModal) {
         editModal.style.display = 'none';
+        addTaskInput.focus(); // Ensure input field regains focus
     }
 });
 
 startBtn.addEventListener('click', startTimer);
 resetBtn.addEventListener('click', resetTimer);
-addTaskBtn.addEventListener('click', addTask);
+
+// Open Add Task Modal
+addTaskBtn.addEventListener('click', () => {
+    addTaskModal.style.display = 'block';
+    addTaskInput.focus(); // Ensure input field gains focus
+});
+
+// Close Add Task Modal
+closeAddBtn.addEventListener('click', () => {
+    addTaskModal.style.display = 'none';
+    addTaskInput.value = ''; // Clear input field
+});
+
+// Confirm Add Task
+confirmAddTaskBtn.addEventListener('click', () => {
+    addTask();
+});
+
+// Add task on Enter key in modal
+addTaskInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        addTask();
+    }
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     loadTasks();
     updateTimer();
+});
+
+const { remote } = require('electron');
+
+let isDragging = false;
+let offset = { x: 0, y: 0 };
+
+const move = document.getElementById('titlebar');
+
+move.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    const currentWindow = remote.getCurrentWindow();
+    offset = {
+        x: e.screenX - currentWindow.getBounds().x,
+        y: e.screenY - currentWindow.getBounds().y
+    };
+});
+
+document.addEventListener('mouseup', () => {
+    isDragging = false;
+});
+
+document.addEventListener('mousemove', (e) => {
+    if (isDragging) {
+        const currentWindow = remote.getCurrentWindow();
+        let newX = e.screenX - offset.x;
+        let newY = e.screenY - offset.y;
+        currentWindow.setPosition(newX, newY);
+    }
 });

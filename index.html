@@ -17,13 +17,22 @@
     <button id="addTaskBtn">Add Task</button>
 
     <ul id="taskList"></ul>
-
+    <div id="move">move</div>
     <!-- Modal for editing task -->
     <div id="editModal" class="modal">
         <div class="modal-content">
             <span class="closeBtn">&times;</span>
             <input type="text" id="editTaskInput">
             <button id="saveEditBtn">Save</button>
+        </div>
+    </div>
+
+    <!-- Modal for adding task -->
+    <div id="addTaskModal" class="modal">
+        <div class="modal-content">
+            <span class="closeAddBtn">&times;</span>
+            <input type="text" id="addTaskInput" placeholder="New task">
+            <button id="confirmAddTaskBtn">Add Task</button>
         </div>
     </div>
 
