@@ -19,12 +19,29 @@ body {
     padding: 20px;
     width: 300px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.time-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 #timer {
     font-size: 48px;
     margin: 20px 0;
     color: white;
+}
+
+.time-input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 label {
@@ -34,7 +51,7 @@ label {
 }
 
 input[type="number"], input[type="text"] {
-    width: 100%;
+    width: calc(100% - 20px); /* Subtract padding to fit within container */
     padding: 10px;
     font-size: 16px;
     margin-bottom: 10px;
@@ -43,6 +60,7 @@ input[type="number"], input[type="text"] {
     color: white;
     border-radius: 5px;
     outline: none;
+    box-sizing: border-box; /* Ensure padding is included in width calculation */
 }
 
 button {
@@ -64,6 +82,14 @@ button:hover {
 .controls {
     display: flex;
     justify-content: space-between;
+    width: 100%;
+}
+
+.task-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
 .task-section button {
@@ -75,6 +101,7 @@ ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
+    width: 100%;
 }
 
 li {

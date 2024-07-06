@@ -1,6 +1,9 @@
 const timerDisplay = document.getElementById('timer');
 const timeInput = document.getElementById('timeInput');
+const loopCountInput = document.getElementById('loopCountInput'); // Assuming you have this input in your HTML
+const breakTimeInput = document.getElementById('breakTimeInput'); // Assuming you have this input in your HTML
 const startBtn = document.getElementById('startBtn');
+const pauseBtn = document.getElementById('pauseBtn');
 const resetBtn = document.getElementById('resetBtn');
 const addTaskBtn = document.getElementById('addTaskBtn');
 const taskList = document.getElementById('taskList');
@@ -12,10 +15,16 @@ const addTaskModal = document.getElementById('addTaskModal');
 const closeAddBtn = document.querySelector('.closeAddBtn');
 const addTaskInput = document.getElementById('addTaskInput');
 const confirmAddTaskBtn = document.getElementById('confirmAddTaskBtn');
+const readySound = document.getElementById('readySound'); // Add this line
+const alarmSound = document.getElementById('alarmSound'); // Add this line
 const { remote } = require('electron');
 
 let timer;
 let timeLeft;
+let isPaused = false;
+let loopCount;
+let currentLoop;
+let isBreak = false;
 let currentEditTask;
 
 function updateTimer() {
@@ -25,21 +34,42 @@ function updateTimer() {
 }
 
 function startTimer() {
+    readySound.play();
     if (timer) return;
 
     timeLeft = parseInt(timeInput.value) * 60;
+    loopCount = parseInt(loopCountInput.value); // Number of loops
+    currentLoop = 0;
+    isBreak = false;
     updateTimer();
 
     timer = setInterval(() => {
-        timeLeft--;
-        updateTimer();
+        if (!isPaused) {
+            timeLeft--;
+            updateTimer();
 
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-            timer = null;
-            alarmSound.play();
+            if (timeLeft <= 0) {
+                alarmSound.play();
+                if (isBreak) {
+                    currentLoop++;
+                    if (currentLoop >= loopCount) {
+                        clearInterval(timer);
+                        timer = null;
+                        return;
+                    }
+                    timeLeft = parseInt(timeInput.value) * 60;
+                } else {
+                    timeLeft = parseInt(breakTimeInput.value) * 60;
+                }
+                isBreak = !isBreak;
+            }
         }
     }, 1000);
+}
+
+function pauseTimer() {
+    isPaused = !isPaused;
+    pauseBtn.textContent = isPaused ? 'Resume' : 'Pause';
 }
 
 function resetTimer() {
@@ -150,6 +180,7 @@ window.addEventListener('click', (e) => {
 });
 
 startBtn.addEventListener('click', startTimer);
+pauseBtn.addEventListener('click', pauseTimer);
 resetBtn.addEventListener('click', resetTimer);
 
 addTaskBtn.addEventListener('click', () => {
