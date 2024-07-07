@@ -1,6 +1,6 @@
 # Pomodoro Timer and Checklist Application
 
-![image](https://github.com/Terafora/desktop-pomodoro/assets/144109245/308ff105-1879-4851-9657-eb318941f8eb)
+![ScreenRecording2024-07-07172101-ezgif com-optimize](https://github.com/Terafora/desktop-pomodoro/assets/144109245/a253805a-2981-41fb-995c-25cfab5cf338)
 
 ## Overview
 
