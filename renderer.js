@@ -1,9 +1,18 @@
+// Select timer and status elements
 const timerDisplay = document.getElementById('timer');
 const statusMessage = document.getElementById('statusMessage');
+
+// Select input elements for time, loops, and breaks
 const timeInput = document.getElementById('timeInput');
+const loopCountInput = document.getElementById('loopCountInput');
+const breakTimeInput = document.getElementById('breakTimeInput');
+
+// Select control buttons
 const startBtn = document.getElementById('startBtn');
 const pauseBtn = document.getElementById('pauseBtn');
 const resetBtn = document.getElementById('resetBtn');
+
+// Select task elements and modals
 const addTaskBtn = document.getElementById('addTaskBtn');
 const taskList = document.getElementById('taskList');
 const editModal = document.getElementById('editModal');
@@ -14,12 +23,15 @@ const addTaskModal = document.getElementById('addTaskModal');
 const closeAddBtn = document.querySelector('.closeAddBtn');
 const addTaskInput = document.getElementById('addTaskInput');
 const confirmAddTaskBtn = document.getElementById('confirmAddTaskBtn');
+
+// Select audio elements for sounds
 const readySound = document.getElementById('readySound');
 const alarmSound = document.getElementById('alarmSound');
-const loopCountInput = document.getElementById('loopCountInput');
-const breakTimeInput = document.getElementById('breakTimeInput');
+
+// Destructure Electron's remote module for window control
 const { remote } = require('electron');
 
+// Timer and loop state variables
 let timer;
 let timeLeft;
 let isPaused = false;
@@ -27,28 +39,55 @@ let isBreak = false;
 let loopCount = 1;
 let currentLoop = 0;
 
+// Select and calculate the progress ring's circumference
+const circle = document.querySelector('.progress-ring__circle');
+const radius = circle.r.baseVal.value;
+const circumference = radius * 2 * Math.PI;
+
+// Set the stroke dash array and offset for the circle
+circle.style.strokeDasharray = `${circumference} ${circumference}`;
+circle.style.strokeDashoffset = circumference;
+
+// Function to set the progress of the ring
+function setProgress(percent) {
+    const offset = circumference + (percent / 100) * -circumference;
+    circle.style.strokeDashoffset = offset;
+}
+
+// Function to update the timer display and progress ring
 function updateTimer() {
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
     timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+    const totalSeconds = isBreak ? parseInt(breakTimeInput.value) * 60 : parseInt(timeInput.value) * 60;
+    const percent = ((totalSeconds - timeLeft) / totalSeconds) * 100; // Adjust to reverse direction
+    setProgress(percent);
 }
 
+// Function to start the timer
 function startTimer() {
     readySound.play();
     if (timer) return;
 
+    // Initialize timer and loop state
     timeLeft = parseInt(timeInput.value) * 60;
-    loopCount = parseInt(loopCountInput.value); // Update loop count from input
+    loopCount = parseInt(loopCountInput.value);
     currentLoop = 0;
     isBreak = false;
-    statusMessage.textContent = 'Focus'; // Initial message
+
+    // Set initial status and ring color
+    statusMessage.textContent = 'Focus';
+    circle.style.stroke = 'green';
     updateTimer();
 
+    // Start the interval timer
     timer = setInterval(() => {
         if (!isPaused) {
             timeLeft--;
             updateTimer();
 
+            // Handle timer end
             if (timeLeft <= 0) {
                 if (isBreak) {
                     currentLoop++;
@@ -56,14 +95,16 @@ function startTimer() {
                         clearInterval(timer);
                         timer = null;
                         alarmSound.play();
-                        statusMessage.textContent = 'Completed'; // Message when all loops are done
+                        statusMessage.textContent = 'Completed';
                         return;
                     }
                     timeLeft = parseInt(timeInput.value) * 60;
-                    statusMessage.textContent = 'Focus'; // Message for focus time
+                    statusMessage.textContent = 'Focus';
+                    circle.style.stroke = 'green';
                 } else {
                     timeLeft = parseInt(breakTimeInput.value) * 60;
-                    statusMessage.textContent = 'Relax'; // Message for break time
+                    statusMessage.textContent = 'Relax';
+                    circle.style.stroke = 'orange';
                 }
                 isBreak = !isBreak;
                 alarmSound.play();
@@ -72,23 +113,27 @@ function startTimer() {
     }, 1000);
 }
 
+// Function to pause or resume the timer
 function pauseTimer() {
     isPaused = !isPaused;
     if (isPaused) {
-        pauseBtn.textContent = 'Resume';
+        pauseBtn.textContent = '▶️';
     } else {
-        pauseBtn.textContent = 'Pause';
+        pauseBtn.textContent = '⏸️';
     }
 }
 
+// Function to reset the timer
 function resetTimer() {
     clearInterval(timer);
     timer = null;
     timeLeft = parseInt(timeInput.value) * 60;
     statusMessage.textContent = 'Focus';
+    circle.style.stroke = 'green';
     updateTimer();
 }
 
+// Function to save tasks to localStorage
 function saveTasks() {
     const tasks = [];
     taskList.querySelectorAll('li').forEach(li => {
@@ -100,6 +145,7 @@ function saveTasks() {
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
+// Function to load tasks from localStorage
 function loadTasks() {
     const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
     tasks.forEach(task => {
@@ -107,6 +153,7 @@ function loadTasks() {
     });
 }
 
+// Function to add a task element to the DOM
 function addTaskElement(taskText, completed = false) {
     const li = document.createElement('li');
 
@@ -133,6 +180,7 @@ function addTaskElement(taskText, completed = false) {
     taskList.appendChild(li);
 }
 
+// Function to handle adding a new task
 function addTask() {
     const taskText = addTaskInput.value.trim();
     if (taskText === '') {
@@ -145,6 +193,7 @@ function addTask() {
     addTaskModal.style.display = 'none';
 }
 
+// Function to add listeners to task elements
 function addTaskListeners(li) {
     const editBtn = li.querySelector('.editBtn');
     const deleteBtn = li.querySelector('.deleteBtn');
@@ -171,6 +220,7 @@ function addTaskListeners(li) {
     });
 }
 
+// Handle saving edits to tasks
 saveEditBtn.addEventListener('click', () => {
     if (currentEditTask) {
         currentEditTask.textContent = editTaskInput.value.trim();
@@ -179,42 +229,47 @@ saveEditBtn.addEventListener('click', () => {
     }
 });
 
+// Handle closing the edit modal
 closeBtn.addEventListener('click', () => {
     editModal.style.display = 'none';
 });
 
+// Handle closing modals by clicking outside of them
 window.addEventListener('click', (e) => {
     if (e.target == editModal) {
         editModal.style.display = 'none';
     }
 });
 
+// Event listeners for timer controls
 startBtn.addEventListener('click', startTimer);
+pauseBtn.addEventListener('click', pauseTimer);
 resetBtn.addEventListener('click', resetTimer);
 
+// Event listener for adding a task
 addTaskBtn.addEventListener('click', () => {
     addTaskModal.style.display = 'block';
 });
 
+// Event listener for closing the add task modal
 closeAddBtn.addEventListener('click', () => {
     addTaskModal.style.display = 'none';
     addTaskInput.value = '';
 });
 
+// Event listener for confirming a task addition
 confirmAddTaskBtn.addEventListener('click', () => {
     addTask();
 });
 
+// Event listener for adding a task with the Enter key
 addTaskInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
         addTask();
     }
 });
 
-startBtn.addEventListener('click', startTimer);
-pauseBtn.addEventListener('click', pauseTimer);
-resetBtn.addEventListener('click', resetTimer);
-
+// Initial loading of tasks and timer setup
 document.addEventListener('DOMContentLoaded', () => {
     loadTasks();
     timeLeft = parseInt(timeInput.value) * 60;
