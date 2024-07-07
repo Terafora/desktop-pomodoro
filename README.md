@@ -1,4 +1,7 @@
 # Pomodoro Timer and Checklist Application
+
+![image](https://github.com/Terafora/desktop-pomodoro/assets/144109245/308ff105-1879-4851-9657-eb318941f8eb)
+
 ## Overview
 
 The Pomodoro Timer and Checklist Application is a desktop productivity tool built using Electron, HTML, CSS, and JavaScript. It combines a Pomodoro timer for time management with a checklist feature for task organization.
@@ -72,6 +75,5 @@ Contributions are welcome! If you encounter any bugs or have suggestions for imp
 If you have any questions, feedback, or job opportunities, feel free to get in touch with Charlotte:
 
 - **Email**: [charlie.stone649@gmail.com](mailto:charlie.stone649@gmail.com)
-- **Phone**: +44 07369 279 305
 - **GitHub**: [Terafora](https://github.com/Terafora)
 - **LinkedIn**: [Charlotte Stone](https://www.linkedin.com/in/charlotte-stone-web/)
