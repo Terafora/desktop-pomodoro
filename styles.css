@@ -2,11 +2,47 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     margin: 0;
-    background: rgb(76, 239, 245);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    overflow: hidden;
+    position: relative;
+    overflow: hidden;
+}
+
+.background-color {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(rgba(76, 239, 245, 0.1), rgba(76, 239, 245, 0.7));
+    background-size: 100% 100%;
+    z-index: 2;
+}
+
+.background-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("assets/images/pomodoroBG.svg");
+    background-size: 20%; /* Adjust size as needed */
+    background-repeat: repeat;
+    z-index: 1;
+    animation: pan 1800s linear infinite;
+    animation-play-state: running; /* Ensure animation continues smoothly */
+}
+
+@keyframes pan {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 6000% 6000%;
+    }
 }
 
 .container {
@@ -15,7 +51,11 @@ body {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     text-align: center;
+    z-index: 3;
+    position: relative;
 }
+
+
 
 #statusMessage {
     margin-top: 20px;
@@ -93,10 +133,6 @@ button:hover {
 
 #startBtn, #pauseBtn, #resetBtn {
     color: #4CAF50;
-}
-
-
-#pauseBtn, #resetBtn {
     font-size: 2.5em;
 }
 
