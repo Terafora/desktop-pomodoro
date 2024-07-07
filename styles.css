@@ -182,7 +182,8 @@ button.editBtn, button.deleteBtn {
 }
 
 button.editBtn:hover, button.deleteBtn:hover {
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: gray;
+    color: white;
 }
 
 button.editBtn {
@@ -207,7 +208,7 @@ button.deleteBtn {
 }
 
 .modal-content {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: white;
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
@@ -217,6 +218,10 @@ button.deleteBtn {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     color: gray;
+}
+
+#addTaskInput {
+    border: 1px solid #ccc;
 }
 
 .closeBtn, .closeAddBtn {
