@@ -11,23 +11,23 @@
 <body>
     <div class="container">
         <div class="timer-container">
-            <svg class="progress-ring" width="120" height="120">
-                <circle class="progress-ring__circle" stroke="green" stroke-width="4" fill="transparent" r="56" cx="60"
-                    cy="60" />
+            <svg class="progress-ring">
+                <circle class="progress-ring__circle" stroke="green" stroke-width="4" fill="transparent" r="72" cx="75"
+                    cy="75" />
             </svg>
             <div id="timer">25:00</div>
             <div id="statusMessage">Focus</div> <!-- New message div -->
         </div>
         <label for="timeInput">Set Timer (minutes):</label>
         <input type="number" id="timeInput" min="1" value="25">
-        <label for="loopCountInput">Loop Count:</label> <!-- Loop Count input -->
-        <input type="number" id="loopCountInput" min="1" value="1">
         <label for="breakTimeInput">Break Time (minutes):</label> <!-- Break Time input -->
         <input type="number" id="breakTimeInput" min="1" value="5">
+        <label for="loopCountInput">Loop Count:</label> <!-- Loop Count input -->
+        <input type="number" id="loopCountInput" min="1" value="1">
         <div class="controls">
-            <button id="startBtn">▶️</button> <!-- Start symbol -->
-            <button id="pauseBtn">⏸️</button> <!-- Pause symbol -->
-            <button id="resetBtn">⏹️</button> <!-- Stop symbol -->
+            <button id="startBtn">▶</button> <!-- Start symbol -->
+            <button id="pauseBtn">⏸</button> <!-- Pause symbol -->
+            <button id="resetBtn">⏹</button> <!-- Stop symbol -->
         </div>
         <div class="task-section">
             <button id="addTaskBtn">Add Task</button>
@@ -49,10 +49,11 @@
                 <button id="confirmAddTaskBtn">Add Task</button>
             </div>
         </div>
-    <audio id="readySound" src="./assets/sfx/countdown-timer-sci-fi-device-epic-stock-media-1-00-02.mp3"
-        preload="auto"></audio>
-    <audio id="alarmSound" src="./assets/sfx/ui-positive-selection-ni-sound-1-00-03.mp3" preload="auto"></audio>
-    <script src="renderer.js"></script>
+        <audio id="readySound" src="./assets/sfx/countdown-timer-sci-fi-device-epic-stock-media-1-00-02.mp3"
+            preload="auto"></audio>
+        <audio id="alarmSound" src="./assets/sfx/ui-positive-selection-ni-sound-1-00-03.mp3" preload="auto"></audio>
+        <script src="renderer.js"></script>
+    </div>
 </body>
 
 </html>

@@ -2,27 +2,23 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     margin: 0;
-    background: rgba(124, 121, 121, 0.6);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgb(76, 239, 245);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(2, 2, 2, 0.3);
 }
 
 .container {
     background: white;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     text-align: center;
 }
 
 #statusMessage {
-    margin-top: 10px;
+    margin-top: 20px;
     font-size: 1.2em;
     color: #333;
 }
@@ -37,6 +33,9 @@ body {
 .timer-container {
     position: relative;
     display: inline-block;
+    width: 150px;
+    height: 150px;
+    margin-bottom: 1.5em;
 }
 
 #timer {
@@ -58,7 +57,8 @@ body {
 label {
     display: block;
     margin-bottom: 10px;
-    color: white;
+    color: gray;
+    text-align: center;  
 }
 
 input[type="number"], input[type="text"] {
@@ -68,10 +68,11 @@ input[type="number"], input[type="text"] {
     margin-bottom: 10px;
     background-color: rgba(255, 255, 255, 0.2);
     border: none;
-    color: white;
+    color: gray;
     border-radius: 5px;
     outline: none;
     box-sizing: border-box;
+    text-align: center;
 }
 
 button {
@@ -80,7 +81,7 @@ button {
     font-size: 16px;
     background-color: rgba(255, 255, 255, 0.2);
     border: none;
-    color: white;
+    color: gray;
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s;
@@ -88,6 +89,15 @@ button {
 
 button:hover {
     background-color: rgba(255, 255, 255, 0.3);
+}
+
+#startBtn, #pauseBtn, #resetBtn {
+    color: #4CAF50;
+}
+
+
+#pauseBtn, #resetBtn {
+    font-size: 2.5em;
 }
 
 .controls {
@@ -104,11 +114,17 @@ button:hover {
 }
 
 .progress-ring {
+    width: 150px;
+    height: 150px;
     transform: rotate(-90deg);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-90deg);
 }
 
 .progress-ring__circle {
-    transition: 0.35s stroke-dasharray;
+    transition: 0.35s stroke-dashoffset;
     transform-origin: 50% 50%;
 }
 
@@ -140,7 +156,7 @@ li {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: white;
+    color: gray;
 }
 
 .completed {
@@ -160,7 +176,7 @@ button.editBtn, button.deleteBtn {
     cursor: pointer;
     background-color: rgba(255, 255, 255, 0.2);
     border: none;
-    color: white;
+    color: gray;
     border-radius: 5px;
     transition: background-color 0.3s;
 }
@@ -200,18 +216,18 @@ button.deleteBtn {
     border-radius: 10px;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    color: white;
+    color: gray;
 }
 
 .closeBtn, .closeAddBtn {
-    color: white;
+    color: gray;
     float: right;
     font-size: 28px;
     font-weight: bold;
 }
 
 .closeBtn:hover, .closeBtn:focus, .closeAddBtn:hover, .closeAddBtn:focus {
-    color: #bbb;
+    color: gray;
     text-decoration: none;
     cursor: pointer;
 }

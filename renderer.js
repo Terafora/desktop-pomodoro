@@ -28,9 +28,6 @@ const confirmAddTaskBtn = document.getElementById('confirmAddTaskBtn');
 const readySound = document.getElementById('readySound');
 const alarmSound = document.getElementById('alarmSound');
 
-// Destructure Electron's remote module for window control
-const { remote } = require('electron');
-
 // Timer and loop state variables
 let timer;
 let timeLeft;
@@ -46,12 +43,12 @@ const circumference = radius * 2 * Math.PI;
 
 // Set the stroke dash array and offset for the circle
 circle.style.strokeDasharray = `${circumference} ${circumference}`;
-circle.style.strokeDashoffset = circumference;
+circle.style.strokeDashoffset = 0;
 
 // Function to set the progress of the ring
 function setProgress(percent) {
-    const offset = circumference + (percent / 100) * -circumference;
-    circle.style.strokeDashoffset = offset;
+    const offset = circumference * (1 - percent / 100);
+    circle.style.strokeDashoffset = -offset;
 }
 
 // Function to update the timer display and progress ring
@@ -61,7 +58,7 @@ function updateTimer() {
     timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
     const totalSeconds = isBreak ? parseInt(breakTimeInput.value) * 60 : parseInt(timeInput.value) * 60;
-    const percent = ((totalSeconds - timeLeft) / totalSeconds) * 100; // Adjust to reverse direction
+    const percent = (timeLeft / totalSeconds) * 100;
     setProgress(percent);
 }
 
@@ -117,9 +114,9 @@ function startTimer() {
 function pauseTimer() {
     isPaused = !isPaused;
     if (isPaused) {
-        pauseBtn.textContent = '▶️';
+        pauseBtn.textContent = '▶';
     } else {
-        pauseBtn.textContent = '⏸️';
+        pauseBtn.textContent = '⏸';
     }
 }
 
