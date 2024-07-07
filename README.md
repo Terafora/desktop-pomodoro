@@ -61,7 +61,7 @@ npm install
 ```
 3. Start the application with:
 ```bash
-  npm start
+npm start
 ```
 ## Contributing
 
