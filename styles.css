@@ -29,11 +29,11 @@ body {
     right: 0;
     bottom: 0;
     background-image: url("assets/images/pomodoroBG.svg");
-    background-size: 20%; /* Adjust size as needed */
+    background-size: 20%;
     background-repeat: repeat;
     z-index: 1;
     animation: pan 1800s linear infinite;
-    animation-play-state: running; /* Ensure animation continues smoothly */
+    animation-play-state: running;
 }
 
 @keyframes pan {
@@ -102,7 +102,7 @@ label {
 }
 
 input[type="number"], input[type="text"] {
-    width: calc(100% - 20px); /* Subtract padding to fit within container */
+    width: calc(100% - 20px);
     padding: 10px;
     font-size: 16px;
     margin-bottom: 10px;
