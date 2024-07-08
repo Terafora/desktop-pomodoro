@@ -46,6 +46,7 @@ The application features a slick design which is practical but also aestheticall
 ## Known Issues
 
 - **Styling Issues**: Some CSS styling adjustments will be needed for better appearance and functionality across different platforms and screen sizes.
+- **Stopped Clock**: If the application window is manually minimised while a timer is on the countdown will freeze until the window is reopened.
 
 ## Installation
 
